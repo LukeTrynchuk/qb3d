@@ -29,16 +29,34 @@ namespace Editor
         }
 
         [TestCase(1, 6)]
-        [TestCase(2, 12)]
-        [TestCase(3, 18)]
-        [TestCase(4, 24)]
+        [TestCase(2, 18)]
+        [TestCase(3, 36)]
+        [TestCase(4, 60)]
         public void GenerateMap_CorrectNumberOfHexesCreated_MustBeCorrect(int numberOfRows, int expectedNumberOfHexes)
         {
             LevelGenerator generator = new LevelGenerator();
 
             generator.GenerateLevel(numberOfRows);
 
-            Assert.AreEqual(generator.Hexes.Count, expectedNumberOfHexes);
+            Assert.AreEqual(expectedNumberOfHexes, generator.Hexes.Count);
+        }
+
+        [TestCase(1, new int[]{6})]
+        [TestCase(2, new int []{6,12})]
+        [TestCase(3, new int [] {6, 12, 18})]
+        [TestCase(4, new int [] {6,12,18,24})]
+        public void GenerateMap_InputRowParameter_CorrectNumberOfHexesPerLayer(int numberOfRows, params int[] expectedNumber)
+        {
+            LevelGenerator generator = new LevelGenerator();
+
+            generator.GenerateLevel(numberOfRows);
+
+            LevelStruct levelStruct = generator.LevelData;
+
+            for (int i = 1; i <= numberOfRows; i++)
+            {
+                Assert.AreEqual(expectedNumber[i - 1], levelStruct.HexDictionary[i].Count);
+            }
         }
     }
 }

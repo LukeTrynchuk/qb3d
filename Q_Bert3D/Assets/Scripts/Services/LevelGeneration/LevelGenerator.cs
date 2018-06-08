@@ -11,11 +11,12 @@ namespace FireBullet.QBert.Services
     public class LevelGenerator : MonoBehaviour
     {
         #region Public Variables
-        public List<GameObject> Hexes { get { return m_hexes; } }
+        public List<GameObject> Hexes { get { return GetHexList(); } }
+        public LevelStruct LevelData { get { return m_levelStruct; }}
         #endregion
 
         #region Private Variables
-        private List<GameObject> m_hexes = new List<GameObject>();
+        private LevelStruct m_levelStruct = new LevelStruct();
         #endregion
 
         #region Main Methods
@@ -31,11 +32,29 @@ namespace FireBullet.QBert.Services
         #region Utility Methods
         private void CreateLevel(int numberOfRows)
         {
-            int numberOfHexesToCreate = numberOfRows * 6;
+            for (int i = 1; i <= numberOfRows; i++)
+            {
+                CreateRow(i);
+            }
+        }
+
+        private void CreateRow(int rowNumber)
+        {
+            m_levelStruct.HexDictionary.Add(rowNumber, new List<GameObject>());
+            int numberOfHexesToCreate = rowNumber * 6;
+            
             for (int i = 0; i < numberOfHexesToCreate; i++)
             {
-                m_hexes.Add(null);
+                m_levelStruct.HexDictionary[rowNumber].Add(null);
             }
+        }
+
+        private List<GameObject> GetHexList()
+        {
+            List<GameObject> m_returnList = new List<GameObject>();
+            foreach (KeyValuePair<int, List<GameObject>> entry in m_levelStruct.HexDictionary)
+                m_returnList.AddRange(entry.Value);
+            return m_returnList;
         }
         #endregion
     }
