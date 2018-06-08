@@ -12,11 +12,13 @@ namespace FireBullet.QBert.Services
     {
         #region Public Variables
         public List<GameObject> Hexes { get { return GetHexList(); } }
-        public LevelStruct LevelData { get { return m_levelStruct; }}
+        public GameObject HexPrefab { get { return m_hexPrefab; }}
+        public LevelStruct LevelData { get { return m_levelStruct; } }
         #endregion
 
         #region Private Variables
         private LevelStruct m_levelStruct = new LevelStruct();
+        private GameObject m_hexPrefab;
         #endregion
 
         #region Main Methods
@@ -25,12 +27,24 @@ namespace FireBullet.QBert.Services
             if (numberOfRows <= 0)
                 throw new System.ArgumentOutOfRangeException("Number of Rows must be greater than 0");
 
+            ValidateData();
+            ResetLevelData();
             CreateLevel(numberOfRows);
         }
-        #endregion
 
-        #region Utility Methods
-        private void CreateLevel(int numberOfRows)
+		private void Awake()
+		{
+            LoadHexPrefab();
+		}
+		#endregion
+
+		#region Utility Methods
+        private void ValidateData()
+        {
+            if (m_hexPrefab == null) LoadHexPrefab();
+        }
+
+		private void CreateLevel(int numberOfRows)
         {
             for (int i = 1; i <= numberOfRows; i++)
             {
@@ -40,13 +54,25 @@ namespace FireBullet.QBert.Services
 
         private void CreateRow(int rowNumber)
         {
-            m_levelStruct.HexDictionary.Add(rowNumber, new List<GameObject>());
+            InitializeDictionaryRow(rowNumber);
             int numberOfHexesToCreate = rowNumber * 6;
-            
+
             for (int i = 0; i < numberOfHexesToCreate; i++)
             {
                 m_levelStruct.HexDictionary[rowNumber].Add(null);
             }
+        }
+        #endregion
+
+        #region Low Level Functions
+        private void InitializeDictionaryRow(int rowNumber)
+        {
+            m_levelStruct.HexDictionary.Add(rowNumber, new List<GameObject>());
+        }
+
+        private void ResetLevelData()
+        {
+            m_levelStruct.HexDictionary.Clear();
         }
 
         private List<GameObject> GetHexList()
@@ -55,6 +81,11 @@ namespace FireBullet.QBert.Services
             foreach (KeyValuePair<int, List<GameObject>> entry in m_levelStruct.HexDictionary)
                 m_returnList.AddRange(entry.Value);
             return m_returnList;
+        }
+
+        private void LoadHexPrefab()
+        {
+            m_hexPrefab = (GameObject)Resources.Load("Prefabs/Hexagon");
         }
         #endregion
     }

@@ -58,5 +58,37 @@ namespace Editor
                 Assert.AreEqual(expectedNumber[i - 1], levelStruct.HexDictionary[i].Count);
             }
         }
+
+        [TestCase(1, 6)]
+        [TestCase(2, 18)]
+        [TestCase(3, 36)]
+        [TestCase(4, 60)]
+        public void GenerateMap_DoubleLevelGeneration_HexesShouldBeOverwritten(int numberOfRows, int expectedNumber)
+        {
+            LevelGenerator generator = new LevelGenerator();
+
+            generator.GenerateLevel(numberOfRows);
+            generator.GenerateLevel(numberOfRows);
+
+            Assert.AreEqual(expectedNumber, generator.Hexes.Count);
+        }
+
+        [TestCase(1)]
+        [TestCase(2)]
+        [TestCase(3)]
+        [TestCase(4)]
+        [TestCase(5)]
+        [TestCase(6)]
+        [TestCase(7)]
+        [TestCase(8)]
+        [TestCase(9)]
+        [TestCase(10)]
+        [TestCase(11)]
+        public void GenerateMap_HexPrefab_DidLoad(int numberOfRows)
+        {
+            LevelGenerator generator = new LevelGenerator();
+            generator.GenerateLevel(numberOfRows);
+            Assert.AreNotSame(null, generator.HexPrefab);
+        }
     }
 }
