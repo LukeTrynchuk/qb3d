@@ -66,16 +66,24 @@ namespace FireBullet.QBert.Services
             for (int i = 1; i <= numberOfRows; i++)
             {
                 Vector3 position = GenerateKeyEdgeHexPosition(i, heading);
+                GenerateFillins(numberOfRows, i + 1, heading, position);
                 CreateHex(position, i);
             }
         }
 
-        private void CreateHex(Vector3 position, int LayerNumber)
+        private void GenerateFillins(int numberOfRows, int rowNumber, Vector2 headingVector, Vector3 startPosition)
         {
-            GameObject hexObject = Instantiate(m_hexPrefab, position, Quaternion.identity);
-            hexObject.name = "Hexagon";
+            if (rowNumber > numberOfRows) return;
 
-			m_levelStruct.HexDictionary[LayerNumber].Add(hexObject);
+            headingVector = headingVector.Rotate(60f);
+            Vector3 lastPosition = startPosition;
+
+            for (int i = 0; rowNumber + i <= numberOfRows; i++)
+            {
+                Vector3 position = GenerateFillinHexPosition(rowNumber + i, headingVector, lastPosition);
+                lastPosition = position;
+                CreateHex(position, rowNumber + i);
+            }
         }
         #endregion
 
@@ -110,6 +118,26 @@ namespace FireBullet.QBert.Services
                                     heading.y * LAYER_EDGE_HEX_DISTANCE * rowNumber);
 
             return position;
+        }
+
+        private Vector3 GenerateFillinHexPosition(int rowNumber, Vector2 heading, Vector3 startPosition)
+        {
+            Vector3 position = startPosition;
+
+            position.y = -LAYER_HEIGHT_DIFFERENCE * rowNumber;
+            position += new Vector3(heading.x * LAYER_EDGE_HEX_DISTANCE,
+                                    0,
+                                    heading.y * LAYER_EDGE_HEX_DISTANCE);
+
+            return position;
+        }
+
+        private void CreateHex(Vector3 position, int LayerNumber)
+        {
+            GameObject hexObject = Instantiate(m_hexPrefab, position, Quaternion.identity);
+            hexObject.name = "Hexagon";
+
+            m_levelStruct.HexDictionary[LayerNumber].Add(hexObject);
         }
 
         private GameObject LoadHexPrefab() => (GameObject)Resources.Load("Prefabs/Hexagon");
