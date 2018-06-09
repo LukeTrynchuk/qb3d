@@ -11,9 +11,9 @@ namespace FireBullet.QBert.Services
     public class LevelGenerator : MonoBehaviour
     {
         #region Public Variables
-        public List<GameObject> Hexes { get { return GetHexList(); } }
-        public GameObject HexPrefab { get { return m_hexPrefab; }}
-        public LevelStruct LevelData { get { return m_levelStruct; } }
+        public List<GameObject> Hexes => GetHexList();
+        public GameObject HexPrefab => m_hexPrefab; 
+        public LevelStruct LevelData => m_levelStruct; 
         #endregion
 
         #region Private Variables
@@ -32,17 +32,11 @@ namespace FireBullet.QBert.Services
             CreateLevel(numberOfRows);
         }
 
-		private void Awake()
-		{
-            LoadHexPrefab();
-		}
+		private void Awake() => LoadHexPrefab();
 		#endregion
 
 		#region Utility Methods
-        private void ValidateData()
-        {
-            if (m_hexPrefab == null) LoadHexPrefab();
-        }
+        private void ValidateData() => m_hexPrefab = m_hexPrefab ?? LoadHexPrefab();
 
 		private void CreateLevel(int numberOfRows)
         {
@@ -65,15 +59,10 @@ namespace FireBullet.QBert.Services
         #endregion
 
         #region Low Level Functions
-        private void InitializeDictionaryRow(int rowNumber)
-        {
+        private void InitializeDictionaryRow(int rowNumber) => 
             m_levelStruct.HexDictionary.Add(rowNumber, new List<GameObject>());
-        }
 
-        private void ResetLevelData()
-        {
-            m_levelStruct.HexDictionary.Clear();
-        }
+        private void ResetLevelData() => m_levelStruct.HexDictionary.Clear();
 
         private List<GameObject> GetHexList()
         {
@@ -83,10 +72,7 @@ namespace FireBullet.QBert.Services
             return m_returnList;
         }
 
-        private void LoadHexPrefab()
-        {
-            m_hexPrefab = (GameObject)Resources.Load("Prefabs/Hexagon");
-        }
+        private GameObject LoadHexPrefab() => (GameObject)Resources.Load("Prefabs/Hexagon");
         #endregion
     }
 }
