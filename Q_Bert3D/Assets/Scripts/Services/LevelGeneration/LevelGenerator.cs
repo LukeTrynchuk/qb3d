@@ -19,7 +19,9 @@ namespace FireBullet.QBert.Services
         #region Private Variables
         private LevelStruct m_levelStruct = new LevelStruct();
         private GameObject m_hexPrefab;
-        private const float LAYER_HEIGHT_DIFFERENCE = 0.25f;
+
+        private const float LAYER_HEIGHT_DIFFERENCE = 0.48f;
+        private const float LAYER_EDGE_HEX_DISTANCE = 0.85f;
         #endregion
 
         #region Main Methods
@@ -29,7 +31,7 @@ namespace FireBullet.QBert.Services
                 throw new System.ArgumentOutOfRangeException("Number of Rows must be greater than 0");
 
             ValidateData();
-            ResetLevelData();
+            ResetLevelData(numberOfRows);
             CreateLevel(numberOfRows);
         }
 
@@ -45,27 +47,32 @@ namespace FireBullet.QBert.Services
 
 		private void CreateLevel(int numberOfRows)
         {
+            GenerateKeyEdgeHexagons(numberOfRows);
+        }
+
+        private void GenerateKeyEdgeHexagons(int numberOfRows)
+        {
+            Vector2 headingVector = new Vector2(0, 1);
+
+            for (int i = 0; i < 6; i++)
+            {
+				GenerateKeyEdge(numberOfRows, headingVector);
+                headingVector = headingVector.Rotate(60f);
+            }
+        }
+
+        private void GenerateKeyEdge(int numberOfRows, Vector2 heading)
+        {
             for (int i = 1; i <= numberOfRows; i++)
             {
-                CreateRow(i);
+                Vector3 position = GenerateKeyEdgeHexPosition(i, heading);
+                CreateHex(position, i);
             }
         }
 
-        private void CreateRow(int rowNumber)
+        private void CreateHex(Vector3 position, int LayerNumber)
         {
-            InitializeDictionaryRow(rowNumber);
-            int numberOfHexesToCreate = rowNumber * 6;
-
-            for (int i = 0; i < numberOfHexesToCreate; i++)
-            {
-                CreateHex(rowNumber);
-            }
-        }
-
-        private void CreateHex(int LayerNumber)
-        {
-            GameObject hexObject = Instantiate(m_hexPrefab, new Vector3(Random.Range(-1000, 1000),-LAYER_HEIGHT_DIFFERENCE * LayerNumber, Random.Range(-1000, 1000)), 
-                                               Quaternion.identity);
+            GameObject hexObject = Instantiate(m_hexPrefab, position, Quaternion.identity);
             hexObject.name = "Hexagon";
 
 			m_levelStruct.HexDictionary[LayerNumber].Add(hexObject);
@@ -76,7 +83,14 @@ namespace FireBullet.QBert.Services
         private void InitializeDictionaryRow(int rowNumber) => 
             m_levelStruct.HexDictionary.Add(rowNumber, new List<GameObject>());
 
-        private void ResetLevelData() => m_levelStruct.HexDictionary.Clear();
+        private void ResetLevelData(int numberOfRows) 
+        {
+			m_levelStruct.HexDictionary.Clear();
+            for (int i = 0; i < numberOfRows; i++)
+            {
+                m_levelStruct.HexDictionary.Add(i + 1, new List<GameObject>());
+            }
+        }
 
         private List<GameObject> GetHexList()
         {
@@ -84,6 +98,18 @@ namespace FireBullet.QBert.Services
             foreach (KeyValuePair<int, List<GameObject>> entry in m_levelStruct.HexDictionary)
                 m_returnList.AddRange(entry.Value);
             return m_returnList;
+        }
+
+        private Vector3 GenerateKeyEdgeHexPosition(int rowNumber, Vector2 heading)
+        {
+            Vector3 position = transform.position;
+
+            position.y = -LAYER_HEIGHT_DIFFERENCE * rowNumber;
+            position += new Vector3(heading.x * LAYER_EDGE_HEX_DISTANCE * rowNumber,
+                                    0, 
+                                    heading.y * LAYER_EDGE_HEX_DISTANCE * rowNumber);
+
+            return position;
         }
 
         private GameObject LoadHexPrefab() => (GameObject)Resources.Load("Prefabs/Hexagon");
