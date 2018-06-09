@@ -53,8 +53,15 @@ namespace FireBullet.QBert.Services
 
             for (int i = 0; i < numberOfHexesToCreate; i++)
             {
-                m_levelStruct.HexDictionary[rowNumber].Add(null);
+                CreateHex(rowNumber);
             }
+        }
+
+        private void CreateHex(int rowNumber)
+        {
+            GameObject hexObject = Instantiate(m_hexPrefab);
+            hexObject.name = "Hexagon";
+			m_levelStruct.HexDictionary[rowNumber].Add(hexObject);
         }
         #endregion
 
