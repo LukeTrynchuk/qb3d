@@ -181,5 +181,77 @@ namespace Editor
             }
         }
 
+        [TestCase(1)]
+        [TestCase(2)]
+        [TestCase(3)]
+        [TestCase(4)]
+        [TestCase(5)]
+        [TestCase(6)]
+        [TestCase(7)]
+        [TestCase(8)]
+        [TestCase(9)]
+        [TestCase(10)]
+        [TestCase(11)]
+        public void GenerateMap_HexXZ_NoHexOnTopOfAnotherHex(int numberOfRows)
+        {
+            LevelGenerator generator = new LevelGenerator();
+            generator.GenerateLevel(numberOfRows);
+
+            List<GameObject> hexList = new List<GameObject>();
+
+            foreach (KeyValuePair<int, List<GameObject>> value in generator.LevelData.HexDictionary)
+            {
+                hexList.Add(value.Value[0]);
+            }
+
+            for (int i = 0; i < hexList.Count - 1; i++)
+            {
+                for (int j = i + 1; j < hexList.Count; j++)
+                {
+                    Assert.False(Mathf.Approximately(hexList[i].transform.position.x, hexList[j].transform.position.x) &&
+                                Mathf.Approximately(hexList[i].transform.position.y, hexList[j].transform.position.y) &&
+                                Mathf.Approximately(hexList[i].transform.position.z, hexList[j].transform.position.z));
+                }
+            }
+        }
+
+        [TestCase(1)]
+        [TestCase(2)]
+        [TestCase(3)]
+        [TestCase(4)]
+        [TestCase(5)]
+        [TestCase(6)]
+        [TestCase(7)]
+        [TestCase(8)]
+        [TestCase(9)]
+        [TestCase(10)]
+        [TestCase(11)]
+        public void GenerateMap_HexNeighbours_EachHexHasAtleastThreeNeighbours(int numberOfRows)
+        {
+            LevelGenerator generator = new LevelGenerator();
+            generator.GenerateLevel(numberOfRows);
+
+            List<GameObject> hexList = new List<GameObject>();
+
+            hexList = generator.Hexes;
+
+            for (int i = 0; i < hexList.Count; i++)
+            {
+                int neighbours = 0;
+
+                for (int j = i = 0; j < hexList.Count; j++)
+                {
+                    if (i == j) continue;
+
+                    if(Vector3.Distance(hexList[i].transform.position, hexList[j].transform.position) < 1f)
+                    {
+                        neighbours++;
+                    }
+                }
+
+                Assert.True(neighbours >= 3);
+            }
+        }
+
     }
 }

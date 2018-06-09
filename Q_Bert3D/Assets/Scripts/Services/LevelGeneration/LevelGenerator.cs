@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-using System.Collections;
+using GreenApple.Poke.Core.Services;
 
 namespace FireBullet.QBert.Services
 {
@@ -8,7 +8,7 @@ namespace FireBullet.QBert.Services
     /// The Level Generator is an implementation of the ILevelGenerator
     /// service which generates levels for the game.
     /// </summary>
-    public class LevelGenerator : MonoBehaviour
+    public class LevelGenerator : MonoBehaviour , ILevelGenerator
     {
         #region Public Variables
         public List<GameObject> Hexes => GetHexList();
@@ -33,7 +33,11 @@ namespace FireBullet.QBert.Services
             CreateLevel(numberOfRows);
         }
 
-		private void Awake() => LoadHexPrefab();
+		private void Awake() 
+        {
+            RegisterService();
+			LoadHexPrefab();
+        }
 		#endregion
 
 		#region Utility Methods
@@ -60,7 +64,8 @@ namespace FireBullet.QBert.Services
 
         private void CreateHex(int LayerNumber)
         {
-            GameObject hexObject = Instantiate(m_hexPrefab, new Vector3(0,-LAYER_HEIGHT_DIFFERENCE * LayerNumber, 0), Quaternion.identity);
+            GameObject hexObject = Instantiate(m_hexPrefab, new Vector3(Random.Range(-1000, 1000),-LAYER_HEIGHT_DIFFERENCE * LayerNumber, Random.Range(-1000, 1000)), 
+                                               Quaternion.identity);
             hexObject.name = "Hexagon";
 
 			m_levelStruct.HexDictionary[LayerNumber].Add(hexObject);
@@ -82,6 +87,8 @@ namespace FireBullet.QBert.Services
         }
 
         private GameObject LoadHexPrefab() => (GameObject)Resources.Load("Prefabs/Hexagon");
+
+        public void RegisterService() => ServiceLocator.Register<ILevelGenerator>(this);
         #endregion
     }
 }
