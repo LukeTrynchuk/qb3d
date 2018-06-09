@@ -2,6 +2,8 @@
 using FireBullet.QBert.Services;
 using System;
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Editor
 {   
@@ -113,5 +115,71 @@ namespace Editor
                 Assert.AreEqual(generator.HexPrefab.name, go.name);
             }
         }
+
+        [TestCase(1)]
+        [TestCase(2)]
+        [TestCase(3)]
+        [TestCase(4)]
+        [TestCase(5)]
+        [TestCase(6)]
+        [TestCase(7)]
+        [TestCase(8)]
+        [TestCase(9)]
+        [TestCase(10)]
+        [TestCase(11)]
+        public void GenerateMap_HexHeights_AreDifferentOnEachLayer(int numberOfRows)
+        {
+            LevelGenerator generator = new LevelGenerator();
+            generator.GenerateLevel(numberOfRows);
+
+            List<float> heightLayerList = new List<float>();
+
+            foreach(KeyValuePair<int, List<GameObject>> value in generator.LevelData.HexDictionary)
+            {
+                heightLayerList.Add(value.Value[0].transform.position.y);
+            }
+
+            for (int i = 0; i < heightLayerList.Count - 1; i++)
+            {
+                for (int j = i + 1; j < heightLayerList.Count; j++)
+                {
+                    Assert.AreNotEqual(heightLayerList[i], heightLayerList[j]);
+                }
+            }
+        }
+
+
+        [TestCase(1)]
+        [TestCase(2)]
+        [TestCase(3)]
+        [TestCase(4)]
+        [TestCase(5)]
+        [TestCase(6)]
+        [TestCase(7)]
+        [TestCase(8)]
+        [TestCase(9)]
+        [TestCase(10)]
+        [TestCase(11)]
+        public void GenerateMap_HexHeights_EachLayerIsLowerThanTheLast(int numberOfRows)
+        {
+            LevelGenerator generator = new LevelGenerator();
+            generator.GenerateLevel(numberOfRows);
+
+            List<float> heightLayerList = new List<float>();
+
+            foreach (KeyValuePair<int, List<GameObject>> value in generator.LevelData.HexDictionary)
+            {
+                heightLayerList.Add(value.Value[0].transform.position.y);
+            }
+
+            for (int i = 0; i < heightLayerList.Count - 1; i++)
+            {
+                for (int j = i + 1; j < heightLayerList.Count; j++)
+                {
+                    Assert.True(heightLayerList[i] > heightLayerList[j]);
+                }
+            }
+        }
+
     }
 }

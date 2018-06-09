@@ -19,6 +19,7 @@ namespace FireBullet.QBert.Services
         #region Private Variables
         private LevelStruct m_levelStruct = new LevelStruct();
         private GameObject m_hexPrefab;
+        private const float LAYER_HEIGHT_DIFFERENCE = 0.25f;
         #endregion
 
         #region Main Methods
@@ -57,11 +58,12 @@ namespace FireBullet.QBert.Services
             }
         }
 
-        private void CreateHex(int rowNumber)
+        private void CreateHex(int LayerNumber)
         {
-            GameObject hexObject = Instantiate(m_hexPrefab);
+            GameObject hexObject = Instantiate(m_hexPrefab, new Vector3(0,-LAYER_HEIGHT_DIFFERENCE * LayerNumber, 0), Quaternion.identity);
             hexObject.name = "Hexagon";
-			m_levelStruct.HexDictionary[rowNumber].Add(hexObject);
+
+			m_levelStruct.HexDictionary[LayerNumber].Add(hexObject);
         }
         #endregion
 
