@@ -226,7 +226,7 @@ namespace Editor
         [TestCase(9)]
         [TestCase(10)]
         [TestCase(11)]
-        public void GenerateMap_HexNeighbours_EachHexHasAtleastThreeNeighbours(int numberOfRows)
+        public void GenerateMap_HexNeighbours_EachHexHasAtleastTwoNeighbours(int numberOfRows)
         {
             LevelGenerator generator = new LevelGenerator();
             generator.GenerateLevel(numberOfRows);
@@ -239,7 +239,7 @@ namespace Editor
             {
                 int neighbours = 0;
 
-                for (int j = i = 0; j < hexList.Count; j++)
+                for (int j = 0; j < hexList.Count; j++)
                 {
                     if (i == j) continue;
 
@@ -249,7 +249,7 @@ namespace Editor
                     }
                 }
 
-                Assert.True(neighbours >= 3);
+                Assert.True(neighbours >= 2);
             }
         }
 

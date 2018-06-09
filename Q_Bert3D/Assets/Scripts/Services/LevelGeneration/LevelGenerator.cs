@@ -110,7 +110,7 @@ namespace FireBullet.QBert.Services
 
         private Vector3 GenerateKeyEdgeHexPosition(int rowNumber, Vector2 heading)
         {
-            Vector3 position = transform.position;
+            Vector3 position = Vector3.zero;
 
             position.y = -LAYER_HEIGHT_DIFFERENCE * rowNumber;
             position += new Vector3(heading.x * LAYER_EDGE_HEX_DISTANCE * rowNumber,
