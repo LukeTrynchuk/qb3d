@@ -727,6 +727,114 @@ Transform:
   m_Father: {fileID: 1493428740}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1678074488
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 114519118692851592, guid: ecd8dfc38cdeb4490b69cdaf1ac5fdc3,
+        type: 2}
+      propertyPath: m_onFadeInComplete.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4505336537104168, guid: ecd8dfc38cdeb4490b69cdaf1ac5fdc3, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4505336537104168, guid: ecd8dfc38cdeb4490b69cdaf1ac5fdc3, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4505336537104168, guid: ecd8dfc38cdeb4490b69cdaf1ac5fdc3, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4505336537104168, guid: ecd8dfc38cdeb4490b69cdaf1ac5fdc3, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4505336537104168, guid: ecd8dfc38cdeb4490b69cdaf1ac5fdc3, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4505336537104168, guid: ecd8dfc38cdeb4490b69cdaf1ac5fdc3, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4505336537104168, guid: ecd8dfc38cdeb4490b69cdaf1ac5fdc3, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4505336537104168, guid: ecd8dfc38cdeb4490b69cdaf1ac5fdc3, type: 2}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114519118692851592, guid: ecd8dfc38cdeb4490b69cdaf1ac5fdc3,
+        type: 2}
+      propertyPath: m_onFadeInComplete.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: SetActive
+      objectReference: {fileID: 0}
+    - target: {fileID: 114519118692851592, guid: ecd8dfc38cdeb4490b69cdaf1ac5fdc3,
+        type: 2}
+      propertyPath: m_onFadeInComplete.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 114519118692851592, guid: ecd8dfc38cdeb4490b69cdaf1ac5fdc3,
+        type: 2}
+      propertyPath: m_onFadeInComplete.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 114519118692851592, guid: ecd8dfc38cdeb4490b69cdaf1ac5fdc3,
+        type: 2}
+      propertyPath: m_onFadeInComplete.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114519118692851592, guid: ecd8dfc38cdeb4490b69cdaf1ac5fdc3,
+        type: 2}
+      propertyPath: m_onFadeInComplete.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114519118692851592, guid: ecd8dfc38cdeb4490b69cdaf1ac5fdc3,
+        type: 2}
+      propertyPath: m_onFadeInComplete.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2037319496}
+    - target: {fileID: 114519118692851592, guid: ecd8dfc38cdeb4490b69cdaf1ac5fdc3,
+        type: 2}
+      propertyPath: m_onFadeInComplete.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: set_interactable
+      objectReference: {fileID: 0}
+    - target: {fileID: 114519118692851592, guid: ecd8dfc38cdeb4490b69cdaf1ac5fdc3,
+        type: 2}
+      propertyPath: m_onFadeOutComplete.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2037319499}
+    - target: {fileID: 114519118692851592, guid: ecd8dfc38cdeb4490b69cdaf1ac5fdc3,
+        type: 2}
+      propertyPath: m_onFadeOutComplete.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 114519118692851592, guid: ecd8dfc38cdeb4490b69cdaf1ac5fdc3,
+        type: 2}
+      propertyPath: m_onFadeOutComplete.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114519118692851592, guid: ecd8dfc38cdeb4490b69cdaf1ac5fdc3,
+        type: 2}
+      propertyPath: m_onFadeOutComplete.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: MainMenu
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: ecd8dfc38cdeb4490b69cdaf1ac5fdc3, type: 2}
+  m_IsPrefabParent: 0
+--- !u!114 &1678074489 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114519118692851592, guid: ecd8dfc38cdeb4490b69cdaf1ac5fdc3,
+    type: 2}
+  m_PrefabInternal: {fileID: 1678074488}
+  m_Script: {fileID: 11500000, guid: df1969da91bd14589984891ccec43112, type: 3}
 --- !u!1 &2037319494
 GameObject:
   m_ObjectHideFlags: 0
@@ -799,20 +907,20 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 2037319497}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2037319499}
-        m_MethodName: LoadScene
-        m_Mode: 5
+      - m_Target: {fileID: 1678074489}
+        m_MethodName: FadeOut
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: MainMenu
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
