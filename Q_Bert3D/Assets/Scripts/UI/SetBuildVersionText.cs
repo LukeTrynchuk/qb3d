@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
-using FireBullet.QBert.Utility;
 using UnityEngine.UI;
+using System.IO;
 
 namespace FireBullet.QBert.UI
 {
@@ -17,7 +17,11 @@ namespace FireBullet.QBert.UI
         #endregion
 
         #region Main Methods
-        private void Start() => m_text.text = $"BUILD {ApplicationUtility.GetBuildVersion()}.{ApplicationUtility.GetBuildNumber()} ";
+        private void Start() 
+        {
+            string version = File.ReadAllText(Application.dataPath + "/Resources/Version/version.txt");
+            m_text.text = version;
+        }
 		#endregion
 	}
 }
