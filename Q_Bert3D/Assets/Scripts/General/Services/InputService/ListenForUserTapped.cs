@@ -22,7 +22,7 @@ namespace FireBullet.QBert.General
         #endregion
 
         #region Main Methods
-        private void Start()
+        private void OnEnable()
         {
             m_inputService.AddRegistrationHandle(HandleInputServiceRegistered);
         }
