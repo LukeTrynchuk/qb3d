@@ -23,7 +23,7 @@ namespace FireBullet.QBert.General
         #endregion
 
         #region Main Methods
-        private void Start()
+        private void Update()
         {
             if (!m_resourceLoader.isRegistered()) return;
             if (m_resourceLoader.Reference.GetState() == ResourceLoaderState.IDLE) return;

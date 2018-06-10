@@ -40,7 +40,7 @@ namespace FireBullet.QBert.Services
             do
             {
                 loadingTime += Time.deltaTime;
-                m_progress = Mathf.Pow(loadingTime / 2f, loadingTime / 2f);
+                m_progress = loadingTime / 2f;
                 m_progress = Mathf.Clamp01(m_progress);
                 yield return null;
             } while (loadingTime < 2f);
